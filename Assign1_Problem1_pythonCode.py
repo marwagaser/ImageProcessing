@@ -17,8 +17,9 @@ def open_image():
     image = Image.open(val)
     oceanArray = np.array(image)#return an array of the image
     return oceanArray
-def computeContrast(a,b,c,d):
-    oceanArray = open_image()
+def computeContrast(a,b,c,d,s):
+    image = Image.open(s)
+    oceanArray = np.array(image)#return an array of the image
     newOceanArray = np.zeros((oceanArray.shape[0],oceanArray.shape[1]))
     y1intercept = y_intercept(0,0,slope(0,0,a,b))
     y2intercept = y_intercept(a,b,slope(a,b,c,d)) #slope 1.4
@@ -56,7 +57,6 @@ def computeContrast(a,b,c,d):
                 northValue=math.floor(newOceanArray[row][col] )    
                 southValue=math.floor(newOceanArray[southRow][col])
                 #loop to get index of each in co-occurrence
-                # South
                 for k in range (1,len(co_occurrence_matrix)):
                     if (co_occurrence_matrix[0][k]==southValue):
                         southIndex=k
@@ -73,5 +73,9 @@ def computeContrast(a,b,c,d):
         for col in range(1,len( co_occurrence_matrix[row])):
             contrastResult+=co_occurrence_matrix[row][col]*((co_occurrence_matrix[0][col]-co_occurrence_matrix[row][0])*(co_occurrence_matrix[0][col]-co_occurrence_matrix[row][0]))
     print(contrastResult)
-#computeContrast(30,20,180,230)
-computeContrast(70,20,140,240)
+    file=open("contrast.txt","a+")
+    file.write("Contrast Ocean_b: %d\r\n"%(contrastResult))
+    file.close()
+
+#computeContrast(30,20,180,230,"Ocean.bmp")
+computeContrast(70,20,140,240,"Ocean.bmp")
