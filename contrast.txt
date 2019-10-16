@@ -1,2 +1,2 @@
-Ocean_a.bmp: 12262910.0 
-Ocean_b.bmp: 23386619.0
+Contrast Ocean_a: 12262910
+Contrast Ocean_b: 23386619
